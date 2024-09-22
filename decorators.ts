@@ -1,6 +1,7 @@
-import { NotValidBodyException, createParamDecorator, OptionsResolver, type HttpContext } from './deps.ts';
+import { NotValidBodyException, createParamDecorator, OptionsResolver, type ExecutionContext } from './deps.ts';
+import { z } from "https://deno.land/x/zod/mod.ts";
 
-export const ZodBody = (zodSchema: any, prop?: string) => createParamDecorator(async (context: HttpContext, opts?: OptionsResolver) => {
+export const ZodBody = <T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>, prop?: string) => createParamDecorator(async (context: ExecutionContext, opts?: OptionsResolver) => {
   if (!opts) {
     throw {
       status: 500,
@@ -27,7 +28,7 @@ export const ZodBody = (zodSchema: any, prop?: string) => createParamDecorator(a
 })();
 
 
-export const ZodQuery = (zodSchema: any) => createParamDecorator(async (context: HttpContext, opts?: OptionsResolver) => {
+export const ZodQuery = <T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>) => createParamDecorator(async (context: ExecutionContext, opts?: OptionsResolver) => {
   const param = context.req.query()
   const operation = zodSchema.safeParse(param);
   if (!operation.success) {
