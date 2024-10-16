@@ -1,10 +1,10 @@
-import { ZodBody, ZodQuery } from '../decorators.ts';
+import { Body, Query } from '../decorators.ts';
 import { z } from "https://deno.land/x/zod/mod.ts";
 import {
 	Controller,
 	Post,
 	Get,
-} from 'https://deno.land/x/danet/mod.ts';
+}	 from 'https://deno.land/x/danet/mod.ts';
 import { Module } from 'https://deno.land/x/danet/src/module/decorator.ts';
 import { DanetApplication } from 'https://deno.land/x/danet/src/app.ts';
 
@@ -19,17 +19,17 @@ type User = z.infer<typeof User>;
 class MyController {
 
 	@Get()
-	getSomething(@ZodQuery(User)  user: User): string {
+	getSomething(@Query(User)  user: User): string {
 		return 'ok';
 	}
 
 	@Post()
-	postSomething(@ZodBody(User)  user: User): string {
+	postSomething(@Body(User)  user: User): string {
 		return 'ok';
 	}
 
 	@Post('attribute')
-	postAttribute(@ZodBody(User, 'user')  {user}  : { user: User } ): string {
+	postAttribute(@Body(User, 'user')  {user}  : { user: User } ): string {
 		return 'ok';
 	}
 }
