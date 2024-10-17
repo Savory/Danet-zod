@@ -2,7 +2,15 @@ import { NotValidBodyException, createParamDecorator, OptionsResolver, type Exec
 import { z } from "zod";
 import { MetadataHelper } from '@danet/core/metadata';
 
-export const zodSchemaKey = 'zodSchema'
+/**
+ *  Constant to access body zod schema for metadata
+ */
+export const zodBodySchemaKey = 'zodBodySchema'
+
+/**
+ *  Constant to access query zod schema for metadata
+ */
+export const zodQuerySchemaKey = 'zodQuerySchema'
 
 /**
  *  Get request's body or a given property and validate it with the provided Zod Schema. Throws NotValidBodyException
@@ -34,7 +42,7 @@ export function Body<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>, prop?: 
     return param;
   }, (target, propertyKey) => {
     MetadataHelper.setMetadata(
-        zodSchemaKey,
+        zodBodySchemaKey,
         zodSchema,
         target.constructor,
         propertyKey,
@@ -56,7 +64,7 @@ export function Query<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>): Decor
     return param;
   }, (target, propertyKey) => {
     MetadataHelper.setMetadata(
-        zodSchemaKey,
+        zodQuerySchemaKey,
         zodSchema,
         target.constructor,
         propertyKey,
