@@ -1,6 +1,9 @@
 import { NotValidBodyException, createParamDecorator, OptionsResolver, type ExecutionContext, type DecoratorFunction } from './deps.ts';
 import { z } from "zod";
 
+/**
+ *  Get request's body or a given property and validate it with the provided Zod Schema. Throws NotValidBodyException
+ */
 export function Body<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>, prop?: string): DecoratorFunction {
   return createParamDecorator(async (context: ExecutionContext, opts?: OptionsResolver) => {
     if (!opts) {
@@ -30,6 +33,9 @@ export function Body<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>, prop?: 
 }
 
 
+/**
+ *  Get request's query or a given property and validate it with the provided Zod Schema. Throws NotValidBodyException
+ */
 export function Query<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>): DecoratorFunction {
   return createParamDecorator(async (context: ExecutionContext, opts?: OptionsResolver) => {
     const param = context.req.query()
