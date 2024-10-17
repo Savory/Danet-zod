@@ -15,6 +15,12 @@
 
 [Overview & Tutorial](https://savory.github.io/Danet/openapi/introduction/)
 
+## Quick Start
+```bash
+   deno install --global -A -n danet jsr:@danet/cli
+   danet new <my-project>
+```
+
 ## License
 
 Danet is [MIT licensed](LICENSE).
