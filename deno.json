@@ -1,8 +1,16 @@
 {
-	"compilerOptions": {
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"jsx": "react-jsx",
-		"jsxImportSource": "preact"
-	}
+  "name": "@danet/zod",
+  "version": "0.0.1",
+  "exports": {
+    ".": "./decorators.ts"
+  },
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "imports": {
+    "@danet/core": "jsr:@danet/core@^2.5.1",
+    "@std/assert": "jsr:@std/assert@1.0.3",
+    "zod": "npm:zod@3.23.8"
+  }
 }

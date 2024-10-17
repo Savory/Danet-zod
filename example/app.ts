@@ -1,12 +1,12 @@
 import { Body, Query } from '../decorators.ts';
-import { z } from "https://deno.land/x/zod/mod.ts";
+import { z } from "zod";
 import {
 	Controller,
 	Post,
 	Get,
-}	 from 'https://deno.land/x/danet/mod.ts';
-import { Module } from 'https://deno.land/x/danet/src/module/decorator.ts';
-import { DanetApplication } from 'https://deno.land/x/danet/src/app.ts';
+} from '@danet/core';
+import { Module } from '@danet/core';
+import { DanetApplication } from '@danet/core';
 
 const User = z.object({
 	username: z.string(),
