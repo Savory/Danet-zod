@@ -71,3 +71,30 @@ export function Query<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>): Decor
     );
   })();
 }
+
+
+/**
+ * Metadata key to store the returned zod schema of a method
+ */
+export const RETURNED_SCHEMA_KEY = 'returnschema';
+
+
+/**
+ * Decorator to set metadata for the returned zod schema of a method.
+ *
+ * @param returnedSchema - The type of the value that the method or property returns.
+ */
+export function ReturnedSchema<T extends z.ZodRawShape>(returnedSchema: z.ZodObject<T>): DecoratorFunction {
+  return (
+      target: Object,
+      propertyKey?: string | symbol,
+      descriptor?: any,
+  ) => {
+    MetadataHelper.setMetadata(
+        RETURNED_SCHEMA_KEY,
+        returnedSchema,
+        target,
+        propertyKey,
+    );
+  };
+}
