@@ -78,13 +78,20 @@ export function Query<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>): Decor
  */
 export const RETURNED_SCHEMA_KEY = 'returnschema';
 
+type MethodDecoratorFunction = (
+    // deno-lint-ignore ban-types
+    target: Object,
+    propertyKey?: string | symbol,
+    descriptor?: PropertyDescriptor,
+) => void;
 
 /**
  * Decorator to set metadata for the returned zod schema of a method.
  *
  * @param returnedSchema - The type of the value that the method or property returns.
+ * @param isArray
  */
-export function ReturnedSchema<T extends z.ZodRawShape>(returnedSchema: z.ZodObject<T>): DecoratorFunction {
+export function ReturnedSchema(returnedSchema: any, isArray?: boolean): MethodDecoratorFunction {
   return (
       target: Object,
       propertyKey?: string | symbol,
@@ -92,7 +99,10 @@ export function ReturnedSchema<T extends z.ZodRawShape>(returnedSchema: z.ZodObj
   ) => {
     MetadataHelper.setMetadata(
         RETURNED_SCHEMA_KEY,
-        returnedSchema,
+        {
+          returnedSchema,
+          isArray,
+        },
         target,
         propertyKey,
     );
