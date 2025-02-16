@@ -12,6 +12,13 @@ const User = z.object({
 	username: z.string(),
 });
 
+const DefaultTodo = z.object({
+	name: z.string().default('hello'),
+	description: z.string()
+})
+
+type DefaultTodo = z.infer<typeof DefaultTodo>;
+
 // extract the inferred type
 type User = z.infer<typeof User>;
 
@@ -31,6 +38,16 @@ class MyController {
 	@Post('attribute')
 	postAttribute(@Body(User, 'user')  {user}  : { user: User } ): string {
 		return 'ok';
+	}
+
+	@Get('query-default')
+	getDefault(@Query(DefaultTodo) todo: DefaultTodo) {
+		return todo;
+	}
+
+	@Post('body-default')
+	post(@Body(DefaultTodo) todo: DefaultTodo) {
+		return todo;
 	}
 }
 

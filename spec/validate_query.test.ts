@@ -16,6 +16,18 @@ Deno.test('Validate query',  async () => {
   await workingResponse.text();
   assertEquals(workingResponse.status, 200);
 
+  const defaultValue = await fetch(
+    `http://localhost:${listenEvent.port}/my-endpoint/query-default?description=world`,
+    {
+      method: 'GET',
+    }
+  );
+  const jsonResponse = await defaultValue.json();
+  assertEquals(jsonResponse.name, 'hello');
+  assertEquals(jsonResponse.description, 'world');
+  assertEquals(defaultValue.status, 200);
+
+
   await app.close();
 })
 

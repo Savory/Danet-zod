@@ -49,5 +49,18 @@ Deno.test('Validate body attribute on post',  async () => {
   await workingResponse.text();
   assertEquals(workingResponse.status, 200);
 
+  const defaultValue = await fetch(
+    `http://localhost:${listenEvent.port}/my-endpoint/body-default`,
+    {
+      method: 'POST',
+      body: JSON.stringify({description:  'world'})
+    }
+  );
+  const jsonResponse = await defaultValue.json();
+  assertEquals(jsonResponse.name, 'hello');
+  assertEquals(defaultValue.status, 200);
+
+
+
   await app.close();
 })

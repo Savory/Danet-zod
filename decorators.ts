@@ -39,7 +39,7 @@ export function Body<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>, prop?: 
     if (!operation.success) {
       throw new NotValidBodyException(operation.error);
     }
-    return param;
+    return operation.data;
   }, (target, propertyKey) => {
     MetadataHelper.setMetadata(
         zodBodySchemaKey,
@@ -61,7 +61,7 @@ export function Query<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>): Decor
     if (!operation.success) {
       throw new NotValidBodyException(operation.error);
     }
-    return param;
+    return operation.data;
   }, (target, propertyKey) => {
     MetadataHelper.setMetadata(
         zodQuerySchemaKey,
