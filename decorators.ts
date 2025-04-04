@@ -59,7 +59,7 @@ export function Query<T extends z.ZodRawShape>(zodSchema: z.ZodObject<T>): Decor
     const param = context.req.query()
     const operation = zodSchema.safeParse(param);
     if (!operation.success) {
-      throw new NotValidBodyException(operation.error);
+      throw new NotValidBodyException(operation.error, "Query bad formatted");
     }
     return operation.data;
   }, (target, propertyKey) => {
